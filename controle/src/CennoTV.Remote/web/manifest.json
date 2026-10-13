@@ -1,0 +1,12 @@
+{
+  "name": "Controle CENNO TV",
+  "short_name": "CENNO TV",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#14170E",
+  "theme_color": "#14170E",
+  "icons": [
+    { "src": "/icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

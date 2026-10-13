@@ -1,0 +1,8 @@
+<Project>
+  <!-- A versão publicada não leva dados de depuração: o registro do .pdb dentro de cada .dll
+       guardava o caminho completo da pasta de quem compilou. -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+</Project>

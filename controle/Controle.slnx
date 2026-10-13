@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CennoTV.Core/CennoTV.Core.csproj" />
+    <Project Path="src/CennoTV.Remote/CennoTV.Remote.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CennoTV.Core.Tests/CennoTV.Core.Tests.csproj" />
+  </Folder>
+</Solution>

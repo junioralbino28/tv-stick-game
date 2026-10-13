@@ -1,0 +1,41 @@
+{
+  // Catálogo padrão do controle. Cada instalação pode sobrescrever ou acrescentar itens em
+  // %LOCALAPPDATA%\CennoTV\catalogo.json (mesmo formato; item com o mesmo id substitui este).
+  // Tipos: "web" (abre no Edge em tela cheia), "programa" (caminho de um .exe) e
+  // "android" (nome do pacote de um app instalado no WSA).
+  "versao": 1,
+  "itens": [
+    {
+      "id": "youtube",
+      "titulo": "YouTube",
+      "tipo": "web",
+      "destino": "https://www.youtube.com/tv",
+      "perfilEdge": "youtube-tv",
+      "userAgent": "Mozilla/5.0 (SMART-TV; Linux; Tizen 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.31 TV Safari/537.36",
+      "cor": "#C4302B"
+    },
+    {
+      "id": "netflix",
+      "titulo": "Netflix",
+      "tipo": "web",
+      "destino": "https://www.netflix.com/browse",
+      "perfilEdge": "tv",
+      "cor": "#8F0A12"
+    },
+    {
+      "id": "navegador",
+      "titulo": "Navegador",
+      "tipo": "web",
+      "destino": "https://www.google.com",
+      "perfilEdge": "tv",
+      "cor": "#1F4E9C"
+    },
+    {
+      "id": "arquivos",
+      "titulo": "Arquivos",
+      "tipo": "programa",
+      "destino": "explorer.exe",
+      "cor": "#008810"
+    }
+  ]
+}

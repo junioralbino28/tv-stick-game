@@ -1,0 +1,24 @@
+# Build .NET
+bin/
+obj/
+*.user
+.vs/
+publish/
+TestResults/
+__pycache__/
+
+# Pacotes Android e arquivos de jogo nunca entram aqui
+*.apk
+*.xapk
+*.iso
+*.chd
+*.pkg
+*.rap
+*.bin
+*.zip
+*.7z
+
+# Segredos
+.env
+*.pfx
+*.pem

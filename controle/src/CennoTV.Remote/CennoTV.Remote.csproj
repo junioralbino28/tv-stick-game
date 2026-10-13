@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Receptor do controle remoto da CENNO TV. Roda na sessão da TV (abre com o login do Windows),
+    serve a página do controle na rede local e transforma os comandos em teclas, mouse e abertura
+    de itens do catálogo. Ver docs/decisions/0002-controle-pela-pagina-web.md.
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>CennoTV.Controle</AssemblyName>
+    <RootNamespace>CennoTV.Remote</RootNamespace>
+    <Product>CENNO TV</Product>
+    <Company>CENNO HUB</Company>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+  <!-- Publicação para o Dell: self-contained, o Dell não precisa instalar .NET -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+  <!-- O SDK comum não traz os usings implícitos da web; o FrameworkReference só traz os assemblies -->
+  <ItemGroup>
+    <Using Include="Microsoft.AspNetCore.Builder" />
+    <Using Include="Microsoft.AspNetCore.Hosting" />
+    <Using Include="Microsoft.AspNetCore.Http" />
+    <Using Include="Microsoft.Extensions.Logging" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <ProjectReference Include="..\CennoTV.Core\CennoTV.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="catalogo.padrao.json" LogicalName="CennoTV.catalogo.padrao.json" />
+    <EmbeddedResource Include="web\index.html" LogicalName="web.index.html" />
+    <EmbeddedResource Include="web\manifest.json" LogicalName="web.manifest.json" />
+    <EmbeddedResource Include="web\icone.svg" LogicalName="web.icone.svg" />
+  </ItemGroup>
+
+</Project>
