@@ -55,14 +55,15 @@ Baixe com `curl.exe -L --fail -o <arquivo> <link>` e confira com
 
 | Programa | Para quê | Link direto | SHA-256 |
 |---|---|---|---|
-| Controle da TV 0.1.0 | controle pelo celular | https://github.com/junioralbino28/tv-stick-game/releases/download/v0.1.0/controle-tv-v0.1.0-win-x64.zip | `f52d5d05fb493f88f6f34f5f726cc5e84f379c6826ce34d7fd06d95f417ca4c4` |
+| Controle da TV 0.1.1 | controle pelo celular | https://github.com/junioralbino28/tv-stick-game/releases/download/v0.1.1/controle-tv-v0.1.1-win-x64.zip | `4824e4a83127b6a115d8ece3b6187d4eb7136c1f4c0383ba1a09062cbdfbd66a` |
 | 7-Zip (7zr.exe) | extrair .7z | https://www.7-zip.org/a/7zr.exe | `256feca8e274e5da655e2a284fabafd9f554365eb164862089dacd4e8276d282` |
 | ES-DE 3.5.0 portátil | menu de jogos | https://gitlab.com/es-de/emulationstation-de/-/package_files/357718057/download (salvar como `ES-DE_3.5.0-x64_Portable.zip`) | `0231edd066a36a9d22d280631cda6b6c1b2afa6dca699bef20e4956a624b7801` |
-| RetroArch 1.22.2 | SNES, Mega Drive, N64, PS1, arcade | https://buildbot.libretro.com/stable/1.22.2/windows/x86_64/RetroArch.7z | `b2139b1d0f9d4526dc6b5ce23cbb3efdc766096fa6f2c3df016818b486ac6372` |
+| RetroArch 1.22.2 | SNES, Mega Drive, N64, PS1, arcade, Game Boy | https://buildbot.libretro.com/stable/1.22.2/windows/x86_64/RetroArch.7z | `b2139b1d0f9d4526dc6b5ce23cbb3efdc766096fa6f2c3df016818b486ac6372` |
 | PCSX2 2.8.2 | PS2 (precisa da BIOS do console) | https://github.com/PCSX2/pcsx2/releases/download/v2.8.2/pcsx2-v2.8.2-windows-x64-Qt.7z | `7dfc829ca1994cc1045ac49f05e39b6cf968b72e6a374c40e05c2a2b4ac200b4` |
 | Play! 0.72 | PS2 sem BIOS (roda menos jogos) | https://purei.org/downloads/play/stable/0.72/Play-x86-64.exe | `466e3bebc4839726682c95c63004847b43244cbe74fb0afcbbba413561fb0f3a` |
 | RPCS3 0.0.43-20284 | PS3 | https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-2ba2f75bcea7ef6bdd687046c7fcfb790faf9853/rpcs3-v0.0.43-20284-2ba2f75b_win64_msvc.7z | `8914810c74508b0e53c6b6cb39d4ed334ecee99639973062d259b1481bfa1720` |
 | Sistema do PS3 4.93 (Sony) | o RPCS3 precisa | http://dus01.ps3.update.playstation.net/update/ps3/image/us/2026_0318_a2b60b6ac1d2e49e230144345616927c/PS3UPDAT.PUP | MD5 `a2b60b6ac1d2e49e230144345616927c` (o próprio endereço) |
+| Dolphin 2609a | Wii (e GameCube) | https://dl.dolphin-emu.org/releases/2609a/dolphin-2609a-x64.7z | `bbfd13bf9e6d2a4164a15c392b1f32a9b18150e5136746b388704608fbb60f76` |
 | Visual C++ 2015-2022 (Microsoft) | o RPCS3 precisa | https://aka.ms/vs/17/release/vc_redist.x64.exe | conferir a assinatura: `Get-AuthenticodeSignature` com `O=Microsoft Corporation` |
 | WSABuilds LTS 8, Windows 11 | apps de Android | https://github.com/MustardChef/WSABuilds/releases/download/Windows_11_2407.40000.4.0_LTS_8/WSA_2407.40000.4.0_x64_Release-Nightly-NoGApps-NoAmazon.7z | `9c51759762f14cdebde7da08ccf94deb220484215468526e1ef688fd669ab7c1` |
 | WSABuilds LTS 8, Windows 10 | apps de Android | https://github.com/MustardChef/WSABuilds/releases/download/Windows_10_2407.40000.4.0_LTS_8/WSA_2407.40000.4.0_x64_Release-Nightly-NoGApps-NoAmazon_Windows_10.7z | `366c344eee70e610e905c7588f661ce028faef8ae55ec9cc6c8dd348ec2cb7c8` |
@@ -72,7 +73,8 @@ Baixe com `curl.exe -L --fail -o <arquivo> <link>` e confira com
 
 Os núcleos do RetroArch vêm do buildbot oficial, sempre a versão mais nova (sem hash fixo):
 `https://buildbot.libretro.com/nightly/windows/x86_64/latest/<núcleo>_libretro.dll.zip`, com
-`snes9x`, `genesis_plus_gx`, `mupen64plus_next`, `pcsx_rearmed` e `fbneo`.
+`snes9x`, `genesis_plus_gx`, `mupen64plus_next`, `pcsx_rearmed`, `fbneo`, `gambatte` (Game Boy e
+Game Boy Color) e `mgba` (Game Boy Advance).
 
 ## Mapa do modo Jogo do celular
 
@@ -93,7 +95,7 @@ mesmas, senão o celular não controla o jogo.
 
 ## A) Controle pelo celular
 
-1. Baixe o `controle-tv-v0.1.0-win-x64.zip`, confira o SHA-256 e extraia numa pasta
+1. Baixe o `controle-tv-v0.1.1-win-x64.zip`, confira o SHA-256 e extraia numa pasta
    (`Expand-Archive`).
 2. Rode `powershell -ExecutionPolicy Bypass -File <pasta>\instalar.ps1`. Ele pede permissão de
    administrador e abre uma janela: avise a pessoa para aceitar e, no fim, apertar Enter nessa
@@ -143,6 +145,7 @@ Estrutura (o ES-DE portátil procura os emuladores nestas pastas exatas):
 <BASE>\ES-DE\Emulators\PCSX2-Qt\          PCSX2 (com um portable.txt vazio e a BIOS em bios\)
 <BASE>\ES-DE\Emulators\Play\              Play! (instalador com /S /D=<pasta>, /D por último e sem aspas)
 <BASE>\ES-DE\Emulators\RPCS3\             RPCS3
+<BASE>\ES-DE\Emulators\Dolphin-x64\       Dolphin (com um portable.txt vazio)
 ```
 
 1. Extraia o ES-DE (zip) e copie o conteúdo da pasta que tem o `ES-DE.exe` para `<BASE>\ES-DE`.
@@ -156,6 +159,7 @@ Estrutura (o ES-DE portátil procura os emuladores nestas pastas exatas):
 5. Jogos da pessoa, cada console na sua pasta de `ROMs`:
    - `snes`, `genesis`, `mastersystem`, `n64`, `fbneo` (arcade), `psx` (PS1: .chd, .cue/.bin ou
      .pbp), `ps2` (.iso ou .chd; se vier em .zip, extraia a .iso, porque o PCSX2 não lê zip);
+   - `gb`, `gbc`, `gba` (Game Boy, Color e Advance) e `wii` (.rvz, .iso ou .wbfs); `gc` para GameCube;
    - PS3 em pasta de disco (tem `PS3_GAME\PARAM.SFO`): copie a pasta para
      `ROMs\ps3\<Nome do jogo>.ps3\`;
    - PS3 da loja (.pkg com licença .rap): instale com `rpcs3.exe --headless --installpkg <arquivo.rap>`
@@ -175,6 +179,8 @@ Estrutura (o ES-DE portátil procura os emuladores nestas pastas exatas):
      para jogos da loja. Se houver dos dois tipos, use o do tipo mais comum no sistema e, em cada
      jogo do outro tipo, um `<game>` com `<path>./Nome.ps3</path>`, `<name>` e
      `<altemulator>RPCS3 Directory (Standalone)</altemulator>`.
+   - `wii` (e `gc`, se houver): `Dolphin (Standalone)` (o padrão do ES-DE é o Dolphin dentro do
+     RetroArch, mais lento). Game Boy não precisa: o ES-DE já usa o Gambatte e o mGBA.
    - **O ES-DE regrava esses arquivos ao fechar**: mexa só com ele fechado.
 7. Teclado do ES-DE igual ao celular: crie `<BASE>\ES-DE\ES-DE\settings\es_input.xml` (só se não
    existir) com estes códigos do SDL2:
@@ -236,7 +242,7 @@ Estrutura (o ES-DE portátil procura os emuladores nestas pastas exatas):
    analógico, porque quase todo jogo de N64 anda pelo analógico.
    Para o analógico do controle funcionar como direcional nos consoles sem analógico, grave
    `input_player1_analog_dpad_mode = "1"` em `config\<núcleo>\<núcleo>.cfg` para `PCSX-ReARMed`,
-   `Snes9x`, `Genesis Plus GX` e `FinalBurn Neo` (não no N64).
+   `Snes9x`, `Genesis Plus GX`, `FinalBurn Neo`, `Gambatte` e `mGBA` (não no N64).
 9. PCSX2: abra o PCSX2 uma vez para ele criar `inis\PCSX2.ini` e feche. Com ele **fechado**, na
    seção `[Pad1]` deixe `Type = DualShock2` e cada botão com duas linhas (a mesma chave repetida
    vale para o controle e para o teclado do celular):
@@ -347,7 +353,7 @@ Estrutura (o ES-DE portátil procura os emuladores nestas pastas exatas):
     do jogo" na aba Jogo. Se o jogo sair da tela cheia, Alt+Enter volta.
 11. Placa de vídeo: em notebook com duas placas, a TV costuma estar na dedicada. Grave em
     `HKCU:\Software\Microsoft\DirectX\UserGpuPreferences` um valor com o caminho completo de cada
-    .exe (`ES-DE.exe`, `retroarch.exe`, `pcsx2-qt.exe`, `Play.exe`, `rpcs3.exe`) e o dado
+    .exe (`ES-DE.exe`, `retroarch.exe`, `pcsx2-qt.exe`, `Play.exe`, `rpcs3.exe`, `Dolphin.exe`) e o dado
     `GpuPreference=2;`. No RPCS3, em `config\config.yml`, ajuste `Video > Vulkan > Adapter` para o
     nome da placa dedicada.
 12. Controle de videogame por Bluetooth: a pessoa pareia em Configurações > Bluetooth e
@@ -367,6 +373,77 @@ Estrutura (o ES-DE portátil procura os emuladores nestas pastas exatas):
     Set-ItemProperty 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR' -Name AllowGameDVR -Value 0 -Type DWord
     ```
     As duas primeiras chaves são do usuário que fica logado na TV: rode na conta dele.
+15. Wii (Dolphin): extraia o Dolphin com o 7zr dentro de `<BASE>\ES-DE\Emulators\` (o arquivo já
+    traz a pasta `Dolphin-x64`, e o `Dolphin.exe` tem que ficar direto nela, que é onde o ES-DE
+    procura) e crie um `portable.txt` vazio ao lado do `Dolphin.exe`: as configurações passam a
+    ficar em `Dolphin-x64\User\Config`. Grave os três arquivos abaixo **antes de abrir o Dolphin**
+    (ou com ele fechado, porque ele regrava ao sair); se já existirem, troque só o que aparece aqui.
+    - `Dolphin.ini`: em `[Display]`, `Fullscreen = True`; em `[Interface]`, `ConfirmStop = False`;
+      em `[Analytics]`, `PermissionAsked = True` e `Enabled = False` (senão ele pergunta sobre
+      estatísticas na primeira vez). Sem jogos de GameCube, em `[Core]`, `SIDevice0 = 0`: o mapa
+      padrão do controle de GameCube usa Enter, e cada A do celular apertaria duas coisas.
+    - `WiimoteNew.ini`, seção `[Wiimote1]` inteira (Wii Remote com Nunchuk; controle e celular
+      juntos, porque cada linha aceita os dois):
+      ```
+      [Wiimote1]
+      Device = SDL/0/DualSense Wireless Controller
+      Buttons/A = `Button S` | `DInput/0/Keyboard Mouse:RETURN`
+      Buttons/B = `Button E` | `Trigger R` | `DInput/0/Keyboard Mouse:ESCAPE` | `DInput/0/Keyboard Mouse:END`
+      Buttons/1 = `Button N` | `DInput/0/Keyboard Mouse:DELETE`
+      Buttons/2 = `Shoulder R` | `DInput/0/Keyboard Mouse:NEXT`
+      Buttons/- = `Back` | `DInput/0/Keyboard Mouse:F1`
+      Buttons/+ = `Start` | `DInput/0/Keyboard Mouse:BACK`
+      Buttons/Home = `Guide`
+      D-Pad/Up = `Pad N`
+      D-Pad/Down = `Pad S`
+      D-Pad/Left = `Pad W`
+      D-Pad/Right = `Pad E`
+      IR/Up = `Right Y-`
+      IR/Down = `Right Y+`
+      IR/Left = `Right X-`
+      IR/Right = `Right X+`
+      Shake/X = `Button W` | `DInput/0/Keyboard Mouse:INSERT`
+      Shake/Y = `Button W` | `DInput/0/Keyboard Mouse:INSERT`
+      Shake/Z = `Button W` | `DInput/0/Keyboard Mouse:INSERT`
+      IMUAccelerometer/Up = `Accel Up`
+      IMUAccelerometer/Down = `Accel Down`
+      IMUAccelerometer/Left = `Accel Left`
+      IMUAccelerometer/Right = `Accel Right`
+      IMUAccelerometer/Forward = `Accel Forward`
+      IMUAccelerometer/Backward = `Accel Backward`
+      IMUGyroscope/Pitch Up = `Gyro Pitch Up`
+      IMUGyroscope/Pitch Down = `Gyro Pitch Down`
+      IMUGyroscope/Roll Left = `Gyro Roll Left`
+      IMUGyroscope/Roll Right = `Gyro Roll Right`
+      IMUGyroscope/Yaw Left = `Gyro Yaw Left`
+      IMUGyroscope/Yaw Right = `Gyro Yaw Right`
+      IMUIR/Recenter = `Thumb R`
+      Extension = Nunchuk
+      Nunchuk/Buttons/C = `Shoulder L` | `DInput/0/Keyboard Mouse:PRIOR`
+      Nunchuk/Buttons/Z = `Trigger L` | `DInput/0/Keyboard Mouse:HOME`
+      Nunchuk/Stick/Up = `Left Y-` | `DInput/0/Keyboard Mouse:UP`
+      Nunchuk/Stick/Down = `Left Y+` | `DInput/0/Keyboard Mouse:DOWN`
+      Nunchuk/Stick/Left = `Left X-` | `DInput/0/Keyboard Mouse:LEFT`
+      Nunchuk/Stick/Right = `Left X+` | `DInput/0/Keyboard Mouse:RIGHT`
+      Nunchuk/Stick/Calibration = 100.00 141.42 100.00 141.42 100.00 141.42 100.00 141.42
+      ```
+    - `Hotkeys.ini`, arquivo inteiro (os atalhos padrão usam Esc para parar o jogo e F1 para
+      carregar estado, e Esc e F1 são o B e o Select do celular):
+      ```
+      [Hotkeys]
+      Device = DInput/0/Keyboard Mouse
+      General/Stop = @(F1+BACK) | (`SDL/0/DualSense Wireless Controller:Back` & `SDL/0/DualSense Wireless Controller:Start`)
+      General/Toggle Fullscreen = @(Alt+RETURN)
+      ```
+    Resultado: Select + Start sai do jogo, pelo controle ou pelo celular. `SDL/0/DualSense Wireless
+    Controller` é o controle de PS5. Com outro controle, abra o Dolphin uma vez, veja o nome em
+    Controles → Wii Remote 1 → Configurar → Dispositivo e troque nas duas configurações; os nomes
+    dos botões (`Button S`, `Shoulder R` e os outros) são os mesmos para qualquer controle. Os
+    sensores (`Accel`, `Gyro`: mexer o controle mira na tela e balança como o Wii Remote) só existem
+    no controle de PS5 e de PS4; o analógico direito também mira, e R3 recentraliza a mira. Pelo
+    celular não há mira: jogos que precisam apontar para a tela pedem o controle. O primeiro jogo
+    de Wii demora um pouco a abrir e pode engasgar nos primeiros minutos, enquanto o Dolphin
+    prepara os gráficos.
 
 A primeira vez que cada jogo de PS3 abre, o RPCS3 prepara o jogo por alguns minutos. É normal.
 

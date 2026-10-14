@@ -1,5 +1,5 @@
 # Gera o .zip da versão a partir de publish\CennoTV.Controle.exe (dotnet publish -c Release -o publish)
-param([string]$Raiz = $PSScriptRoot, [string]$Versao = '0.1.0')
+param([string]$Raiz = $PSScriptRoot, [string]$Versao = '0.1.1')
 $ErrorActionPreference = 'Stop'
 $pac = Join-Path $Raiz 'publish\pacote'
 New-Item -ItemType Directory -Force $pac | Out-Null

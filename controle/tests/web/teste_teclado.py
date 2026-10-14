@@ -46,7 +46,7 @@ with sync_playwright() as p:
 
     pg.goto('http://dell.local:8765/')
     pg.wait_for_function("document.getElementById('estado').classList.contains('on')", timeout=5000)
-    conferir('três abas visíveis', pg.locator('#abas button').count() == 3)
+    conferir('quatro abas visíveis', pg.locator('#abas button').count() == 4)
 
     # Botão "Abrir teclado" do Controle leva à aba e põe o foco no campo
     pg.click('[data-aba-ir="teclado"]')

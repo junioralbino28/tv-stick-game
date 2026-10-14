@@ -48,9 +48,19 @@
   p.aviso { color: var(--fraco); font-size: 14px; line-height: 1.45; }
   #msg { min-height: 20px; font-size: 14px; color: var(--erro); margin: 6px 0; }
   .discreto { background: transparent; color: var(--fraco); min-height: 40px; font-size: 13px; width: 100%; }
-  .abas { display: none; grid-template-columns: repeat(3, 1fr); gap: 6px; background: var(--painel); border-radius: 14px; padding: 4px; margin-bottom: 14px; }
+  .abas { display: none; grid-template-columns: repeat(4, 1fr); gap: 6px; background: var(--painel); border-radius: 14px; padding: 4px; margin-bottom: 14px; }
   .abas.visivel { display: grid; }
-  .abas button { min-height: 40px; background: transparent; color: var(--fraco); font-weight: 600; }
+  .abas button { min-height: 40px; background: transparent; color: var(--fraco); font-weight: 600; font-size: 14px; padding: 0 2px; }
+  /* Aba Botões: o mapa de cada console (controle, celular e o botão do jogo) */
+  .consoles { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 12px; scrollbar-width: none; }
+  .consoles button { flex: 0 0 auto; min-height: 40px; padding: 0 14px; font-size: 14px; font-weight: 600; }
+  .consoles button.sel { background: var(--laranja); color: #14170E; }
+  .mapa { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 12px; }
+  .mapa th { text-align: left; color: var(--fraco); font-weight: 600; font-size: 12px; padding: 4px; }
+  .mapa td { padding: 9px 4px; border-top: 1px solid var(--tecla); vertical-align: top; }
+  .mapa td:last-child { font-weight: 600; }
+  .nota { background: var(--painel); border-radius: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.45; color: var(--fraco); margin-bottom: 10px; }
+  .nota b { color: var(--texto); }
   .abas button.sel { background: var(--tecla-ativa); color: var(--texto); }
   body.modo-jogo { max-width: none; }
   #jogo { touch-action: none; }
@@ -105,6 +115,7 @@
   <button data-aba="controle" class="sel">Controle</button>
   <button data-aba="jogo">🎮 Jogo</button>
   <button data-aba="teclado">⌨ Teclado</button>
+  <button data-aba="botoes">❔ Botões</button>
 </div>
 
 <section id="teclado" class="tela">
@@ -121,6 +132,16 @@
     <button data-k="Baixo" aria-label="Baixo">▼</button>
     <button data-k="Direita" aria-label="Direita">▶</button>
   </div>
+</section>
+
+<section id="botoes" class="tela">
+  <div class="consoles" id="consoles"></div>
+  <table class="mapa">
+    <thead><tr><th>No controle</th><th>No celular</th><th>No jogo</th></tr></thead>
+    <tbody id="mapa"></tbody>
+  </table>
+  <div class="nota" id="notaSair"></div>
+  <div class="nota" id="notaTrocar"></div>
 </section>
 
 <section id="jogo" class="tela">
@@ -149,7 +170,7 @@
       <button class="b" data-b="B">B</button>
     </div>
   </div>
-  <p class="dica">Escolha o jogo no Controle e jogue aqui. Gire o celular para jogar deitado.<br>A = OK e B = Voltar também no menu de jogos. No N64: B = botão A, Y = botão B, L2 = Z.</p>
+  <p class="dica">Escolha o jogo no Controle e jogue aqui. Gire o celular para jogar deitado.<br>A = OK e B = Voltar também no menu de jogos. O que cada botão faz em cada console: aba ❔ Botões.</p>
 </section>
 
 <section id="controle" class="tela">
@@ -266,7 +287,7 @@
   }
 
   // Abas Controle / Jogo / Teclado (a última escolhida fica salva neste aparelho)
-  function lerAba() { try { const a = localStorage.getItem('cenno-aba'); return a === 'jogo' || a === 'teclado' ? a : 'controle'; } catch { return 'controle'; } }
+  function lerAba() { try { const a = localStorage.getItem('cenno-aba'); return a === 'jogo' || a === 'teclado' || a === 'botoes' ? a : 'controle'; } catch { return 'controle'; } }
   function telaCheia(sim) {
     try {
       if (sim && !document.fullscreenElement && document.documentElement.requestFullscreen)
@@ -286,6 +307,84 @@
   }
   for (const b of document.querySelectorAll('[data-aba], [data-aba-ir]'))
     b.addEventListener('click', () => trocarAba(b.dataset.aba || b.dataset.abaIr, true));
+
+  // Aba Botões: o que cada botão faz em cada console. Conferido no código de cada emulador e num
+  // computador montado pelo INSTALAR-COM-IA.md em 13/10/2026: snes9x, Genesis Plus GX (Mega Drive e Master System),
+  // Mupen64Plus-Next (segurar R2 = modo dos botões C), PCSX ReARMed, FBNeo, Gambatte/mGBA,
+  // PCSX2, RPCS3 e Dolphin. No celular: A = Enter, B = Esc, X = Delete, Y = Insert.
+  const RA_SAIR = 'No controle: <b>Create + Options</b> juntos. No celular: <b>✕ Sair do jogo</b>, na aba Jogo.';
+  const RA_TROCAR = 'Durante o jogo, aperte <b>PS</b> no controle para abrir o menu do RetroArch: <b>Menu rápido → Controles → Controles da porta 1</b>. Troque o botão e salve o remapeamento do jogo (vale só nele) ou do núcleo (vale para o console todo).';
+  const SELECT_START = 'Controle e celular: <b>Select + Start</b> juntos (no controle, Create + Options).';
+  const DIRECIONAL = ['Direcional ou analógico esquerdo', 'Setas', 'Direcional'];
+  const CONSOLES = [
+    { id: 'snes', nome: 'SNES', sair: RA_SAIR, trocar: RA_TROCAR, linhas: [
+      ['✕', 'B', 'B'], ['○', 'A', 'A'], ['□', 'Y', 'Y'], ['△', 'X', 'X'],
+      ['L1 / R1', 'L / R', 'L / R'], ['Options / Create', 'Start / Select', 'Start / Select'], DIRECIONAL] },
+    { id: 'megadrive', nome: 'Mega Drive', sair: RA_SAIR, trocar: RA_TROCAR, linhas: [
+      ['□', 'Y', 'A'], ['✕', 'B', 'B'], ['○', 'A', 'C'],
+      ['L1 / △ / R1', 'L / X / R', 'X / Y / Z (controle de 6 botões)'],
+      ['Options', 'Start', 'Start'], ['Create', 'Select', 'Mode'], DIRECIONAL] },
+    { id: 'mastersystem', nome: 'Master System', sair: RA_SAIR, trocar: RA_TROCAR, linhas: [
+      ['✕', 'B', 'Botão 1'], ['○', 'A', 'Botão 2'], ['Options', 'Start', 'Pause'], DIRECIONAL] },
+    { id: 'n64', nome: 'Nintendo 64', sair: RA_SAIR, trocar: RA_TROCAR, linhas: [
+      ['Analógico esquerdo', 'Setas', 'Analógico'], ['✕', 'B', 'A'], ['□', 'Y', 'B'],
+      ['L2', 'L2', 'Z'], ['L1 / R1', 'L / R', 'L / R'], ['Options', 'Start', 'Start'],
+      ['Analógico direito', '—', 'Botões C (amarelos)'],
+      ['Segure R2 + △ ○ ✕ □', 'Segure R2 + X A B Y', 'C cima, direita, baixo, esquerda'],
+      ['Direcional', 'Setas', 'Direcional']] },
+    { id: 'ps1', nome: 'PS1', sair: RA_SAIR, trocar: RA_TROCAR, linhas: [
+      ['✕ ○ □ △', 'B A Y X', '✕ ○ □ △'], ['L1 / R1', 'L / R', 'L1 / R1'], ['L2 / R2', 'L2 / R2', 'L2 / R2'],
+      ['Options / Create', 'Start / Select', 'Start / Select'], DIRECIONAL] },
+    { id: 'ps2', nome: 'PS2', sair: SELECT_START,
+      trocar: 'No PCSX2, em <b>Configurações → Controles</b> (precisa do mouse: use o touchpad da aba Controle). O botão PS ou o touchpad do controle abre o menu de pausa. Com o Play! (sem BIOS), os botões ficam na tela dele.',
+      linhas: [
+        ['Todos os botões', '—', 'Iguais aos do PS2'], ['—', 'B A Y X', '✕ ○ □ △'],
+        ['—', 'L / R / L2 / R2', 'L1 / R1 / L2 / R2'], ['—', 'Start / Select', 'Start / Select'], ['—', 'Setas', 'Direcional']] },
+    { id: 'ps3', nome: 'PS3', sair: 'No controle: botão <b>PS</b> e depois <b>Exit Game</b>. No celular: <b>✕ Sair do jogo</b>, na aba Jogo.',
+      trocar: 'O PS3 aceita um aparelho por vez: controle <b>ou</b> celular, como ficou na instalação. Pelo celular não há analógico direito nem botão PS. Para mudar um botão: no RPCS3, <b>Configuration → Pads</b>.',
+      linhas: [
+        ['Todos os botões', '—', 'Iguais aos do PS3'], ['—', 'B A Y X', '✕ ○ □ △'],
+        ['—', 'L / R / L2 / R2', 'L1 / R1 / L2 / R2'], ['—', 'Start / Select', 'Start / Select'], ['—', 'Setas', 'Analógico esquerdo']] },
+    { id: 'wii', nome: 'Wii', sair: SELECT_START,
+      trocar: 'No Dolphin (<b>Dolphin.exe</b>, na pasta de emuladores do ES-DE): <b>Controles → Wii Remote 1 → Configurar</b>. Precisa do mouse: use o touchpad da aba Controle. Mexer o controle só mira com controle de PS5 ou PS4.',
+      linhas: [
+        ['Analógico esquerdo', 'Setas', 'Analógico do Nunchuk'], ['✕', 'A', 'A'], ['○ ou R2', 'B ou R2', 'B (gatilho)'],
+        ['□ ou sacudir o controle', 'Y', 'Sacudir (giro)'], ['△ / R1', 'X / R', '1 / 2'], ['L1 / L2', 'L / L2', 'C / Z do Nunchuk'],
+        ['Options / Create', 'Start / Select', '+ / −'], ['PS', '—', 'Home'],
+        ['Mexer o controle ou analógico direito', '—', 'Mira na tela'], ['R3', '—', 'Recentraliza a mira'], ['Direcional', '—', 'Direcional']] },
+    { id: 'gameboy', nome: 'Game Boy', sair: RA_SAIR, trocar: RA_TROCAR, linhas: [
+      ['○', 'A', 'A'], ['✕', 'B', 'B'], ['L1 / R1', 'L / R', 'L / R (só no GBA)'],
+      ['Options / Create', 'Start / Select', 'Start / Select'], DIRECIONAL] },
+    { id: 'arcade', nome: 'Arcade', sair: RA_SAIR, trocar: RA_TROCAR, linhas: [
+      ['✕', 'B', 'Botão 1 (tiro, ataque)'], ['○', 'A', 'Botão 2 (bomba, pulo)'], ['□', 'Y', 'Botão 3'], ['△', 'X', 'Botão 4'],
+      ['Create', 'Select', 'Ficha'], ['Options', 'Start', 'Começar'], DIRECIONAL] },
+  ];
+  function mostrarConsole(id) {
+    const c = CONSOLES.find(x => x.id === id) || CONSOLES[0];
+    for (const b of $('consoles').children) {
+      b.classList.toggle('sel', b.dataset.console === c.id);
+      if (b.dataset.console === c.id) b.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+    const corpo = $('mapa');
+    corpo.textContent = '';
+    for (const linha of c.linhas) {
+      const tr = document.createElement('tr');
+      for (const valor of linha) { const td = document.createElement('td'); td.textContent = valor; tr.appendChild(td); }
+      corpo.appendChild(tr);
+    }
+    $('notaSair').innerHTML = '<b>Sair do jogo.</b> ' + c.sair;
+    $('notaTrocar').innerHTML = '<b>Trocar os botões.</b> ' + c.trocar;
+    try { localStorage.setItem('cenno-console', c.id); } catch {}
+  }
+  for (const c of CONSOLES) {
+    const b = document.createElement('button');
+    b.textContent = c.nome; b.dataset.console = c.id;
+    b.addEventListener('click', () => mostrarConsole(c.id));
+    $('consoles').appendChild(b);
+  }
+  let consoleSalvo = null;
+  try { consoleSalvo = localStorage.getItem('cenno-console'); } catch {}
+  mostrarConsole(consoleSalvo);
 
   // Modo Jogo: cada botão fica apertado enquanto o dedo estiver nele
   const apertados = new Set();
@@ -418,7 +517,7 @@
   $('pedir').addEventListener('click', async () => {
     $('msg').textContent = '';
     const r = await fetch('/api/parear', { method: 'POST' }).catch(() => null);
-    if (!r) { $('msg').textContent = 'Não achei a TV. O celular está no mesmo Wi-Fi do Dell?'; return; }
+    if (!r) { $('msg').textContent = 'Não achei a TV. O celular está no mesmo Wi-Fi do computador?'; return; }
     if (r.status === 429) { $('msg').textContent = 'Espere alguns segundos e tente de novo.'; return; }
     $('passo2').style.display = 'block'; $('codigo').focus();
   });

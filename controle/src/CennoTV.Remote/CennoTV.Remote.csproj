@@ -15,7 +15,7 @@
     <RootNamespace>CennoTV.Remote</RootNamespace>
     <Product>CENNO TV</Product>
     <Company>CENNO HUB</Company>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
   </PropertyGroup>
 
   <!-- Publicação para o Dell: self-contained, o Dell não precisa instalar .NET -->
